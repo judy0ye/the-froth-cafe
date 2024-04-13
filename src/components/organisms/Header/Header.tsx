@@ -1,4 +1,3 @@
-import BrandLogo from "@/components/atoms/BrandLogo/BrandLogo";
 import ShoppingCartLogo from "@/components/atoms/ShoppingCartLogo/ShoppingCartLogo";
 
 import UserLogo from "@/components/atoms/UserLogo/UserLogo";

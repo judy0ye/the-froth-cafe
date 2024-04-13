@@ -5,6 +5,8 @@ import { useEffect, useRef, useState } from "react";
 import { IconMenu2, IconX } from "@tabler/icons-react";
 import BrandLogo from "@/components/atoms/BrandLogo/BrandLogo";
 import NavigationRoutes from "../NavigationRoutes/NavigationRoutes";
+import clsx from "clsx";
+import SideNavigation from "@/components/organisms/SideNavigation/SideNavigation";
 
 const HeaderNavigation = () => {
   const sideNavRef = useRef<HTMLDivElement | null>(null);
@@ -49,7 +51,11 @@ const HeaderNavigation = () => {
   return (
     <>
       <button className="sm:hidden pl-1" onClick={toggleMenu}>
-        {!openMenu ? <IconMenu2 /> : <IconX />}
+        {!openMenu ? (
+          <IconMenu2 aria-label="open side navigation menu" />
+        ) : (
+          <IconX aria-label="close side navigation menu" />
+        )}
       </button>
       <BrandLogo />
       <nav className="hidden text-lg w-full sm:visible sm:flex sm:justify-between sm:items-center">
@@ -57,6 +63,18 @@ const HeaderNavigation = () => {
           <NavigationRoutes />
         </div>
       </nav>
+      <div
+        ref={sideNavRef}
+        className={clsx(
+          "fixed inset-y-16 left-0 z-10 bg-white h-fit w-full ease-in-out duration-300 shadow-md",
+          {
+            "translate-x-0": openMenu,
+            "translate-x-[-100%]": !openMenu,
+          },
+        )}
+      >
+        <SideNavigation toggleMenu={toggleMenu} />
+      </div>
     </>
   );
 };

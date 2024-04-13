@@ -3,7 +3,7 @@ import Link from "next/link";
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
 import { IconCaretDown, IconLogout } from "@tabler/icons-react";
 
-const NavigationRoutes = () => {
+const NavigationRoutes = ({ toggleMenu }: { toggleMenu?: () => void }) => {
   return (
     <>
       <NavigationMenu.Root className="relative">
@@ -17,7 +17,7 @@ const NavigationRoutes = () => {
               />
             </NavigationMenu.Trigger>
             <NavigationMenu.Content className="absolute top-[40px] sm:top-[58px] bg-white sm:border-black border-2 rounded-md">
-              <ul className="flex flex-col gap-5 m-5 ">
+              <ul onClick={toggleMenu} className="flex flex-col gap-5 m-5 ">
                 <li>
                   <NavigationMenu.Link asChild>
                     <Link href={"/food"} className="p-2 hover:bg-gray-200">
