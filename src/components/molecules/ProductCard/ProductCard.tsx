@@ -5,7 +5,6 @@ import Link from "next/link";
 const ProductCard = ({ product }: { product: ProductCardTypes }) => {
   const products = product.product.map((product, index) => (
     <Link
-
       href={{
         pathname: `/product/${product.name}`,
         query: {

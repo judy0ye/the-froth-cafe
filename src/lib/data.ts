@@ -4,13 +4,13 @@ const fetchProductsByCategory = async (categoryId: number) => {
   const supabase = createClient();
 
   try {
-    let { data: products, error } = await supabase
+    let { data, error } = await supabase
       .from("product_category")
       .select(
         `
         category_name,parent_category_id,
         product (
-          product_id, name, image, product_category_id
+          id, name, image, product_category_id
         )
         `,
       )
@@ -20,7 +20,7 @@ const fetchProductsByCategory = async (categoryId: number) => {
       throw error;
     }
 
-    return products;
+    return data;
   } catch (error) {
     throw new Error(
       `${(error as Error).message}- Failed in fetch products catch block`,
@@ -28,4 +28,26 @@ const fetchProductsByCategory = async (categoryId: number) => {
   }
 };
 
-export { fetchProductsByCategory }
+const fetchIndividualProduct = async (name: string) => {
+  const supabase = createClient();
+
+  try {
+    let { data, error } = await supabase
+      .from("product")
+      .select("id, name, description, image, product_category_id, price")
+      .eq("name", name);
+
+    if (error) {
+      throw error;
+    }
+
+    if (data) {
+      return data[0];
+    }
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message}- Failed in fetch individual product catch block`,
+    );
+  }
+};
+export { fetchProductsByCategory, fetchIndividualProduct };

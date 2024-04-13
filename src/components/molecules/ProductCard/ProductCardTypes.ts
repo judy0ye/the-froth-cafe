@@ -1,5 +1,5 @@
 interface IndividualProductTypes {
-  product_id: number;
+  id: number;
   name: string;
   image: string;
   product_category_id: number;
