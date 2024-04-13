@@ -14,6 +14,10 @@
   "dependencies": {
     "@headlessui/react": "^1.7.18",
     "@radix-ui/react-navigation-menu": "^1.1.4",
+    "@supabase/auth-ui-react": "^0.4.7",
+    "@supabase/auth-ui-shared": "^0.1.8",
+    "@supabase/ssr": "^0.3.0",
+    "@supabase/supabase-js": "^2.42.3",
     "@tabler/icons-react": "^3.2.0",
     "clsx": "^2.1.0",
     "next": "14.2.1",
