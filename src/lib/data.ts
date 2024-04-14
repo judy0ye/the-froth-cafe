@@ -28,6 +28,29 @@ const fetchProductsByCategory = async (categoryId: number) => {
   }
 };
 
+const fetchCategories = async (productId: number) => {
+  const supabase = createClient();
+
+  try {
+    let { data, error } = await supabase
+      .from("product_category")
+      .select("id, parent_category_id")
+      .eq("id", productId);
+
+    if (error) {
+      throw error;
+    }
+
+    if (data) {
+      return data[0];
+    }
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message} - Failed in fetch categories catch block`,
+    );
+  }
+};
+
 const fetchIndividualProduct = async (name: string) => {
   const supabase = createClient();
 
@@ -50,4 +73,66 @@ const fetchIndividualProduct = async (name: string) => {
     );
   }
 };
-export { fetchProductsByCategory, fetchIndividualProduct };
+
+const getUser = async () => {
+  const supabase = createClient();
+
+  try {
+    const {
+      data: { user },
+    } = await supabase.auth.getUser();
+    return user;
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message}- Failed in get user catch block`,
+    );
+  }
+};
+
+const fetchShoppingCart = async () => {
+  const supabase = createClient();
+  try {
+    const { data, error } = await supabase
+      .from("shopping_cart")
+      .select("id, user_id");
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message}- Failed in fetch shopping cart catch block`,
+    );
+  }
+};
+
+const fetchItemsInCart = async (shoppingCartId: number) => {
+  const supabase = createClient();
+
+  try {
+    const { data, error } = await supabase
+      .from("product_item")
+      .select("id, name, size, milk, quantity")
+      .eq("shopping_cart_id", shoppingCartId);
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message} - Failed in fetch items in cart catch block`,
+    );
+  }
+};
+export {
+  fetchProductsByCategory,
+  fetchCategories,
+  fetchIndividualProduct,
+  getUser,
+  fetchShoppingCart,
+  fetchItemsInCart,
+};
