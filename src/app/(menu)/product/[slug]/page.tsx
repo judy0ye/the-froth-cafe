@@ -1,3 +1,4 @@
+import AssociatedProducts from "@/components/organisms/AssociatedProducts/AssociatedProducts";
 import DetailedProduct from "@/components/organisms/DetailedProduct/DetailedProduct";
 
 const IndividualProduct = ({
@@ -10,6 +11,7 @@ const IndividualProduct = ({
   return (
     <>
       <DetailedProduct params={params} />
+      <AssociatedProducts params={params} searchParams={searchParams} />
     </>
   );
 };

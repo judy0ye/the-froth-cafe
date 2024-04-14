@@ -128,6 +128,33 @@ const fetchItemsInCart = async (shoppingCartId: number) => {
     );
   }
 };
+
+const fetchSimilarSubCategories = async (
+  productCatId: number,
+  name: string,
+) => {
+  const supabase = createClient();
+
+  try {
+    let { data, error } = await supabase
+      .from("product")
+      .select("product_category_id, name, image")
+      .not("name", "eq", name)
+      .limit(4)
+      .eq("product_category_id", productCatId);
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message}- Failed in fetch similar subcategories catch block`,
+    );
+  }
+};
+
 export {
   fetchProductsByCategory,
   fetchCategories,
@@ -135,4 +162,5 @@ export {
   getUser,
   fetchShoppingCart,
   fetchItemsInCart,
+  fetchSimilarSubCategories,
 };
