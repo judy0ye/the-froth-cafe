@@ -114,7 +114,7 @@ const fetchItemsInCart = async (shoppingCartId: number) => {
   try {
     const { data, error } = await supabase
       .from("product_item")
-      .select("id, name, size, milk, quantity")
+      .select("id, name, size, milk, quantity, price, image")
       .eq("shopping_cart_id", shoppingCartId);
 
     if (error) {

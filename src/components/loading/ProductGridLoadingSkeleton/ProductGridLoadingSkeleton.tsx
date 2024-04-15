@@ -1,8 +1,8 @@
 const ProductGridLoadingSkeleton = () => {
   return (
-    <main>
-      <section className="h-[45vh] bg-slate-500"></section>
-      <section className=" my-5 mx-10 h-full gap-8 animate-pulse flex flex-col">
+    <main className=" my-5 mx-10 h-full gap-8 animate-pulse flex flex-col">
+      <section className="h-[45vh] bg-slate-400"></section>
+      <section>
         <div>
           <div className="w-[160px] h-[40px] bg-slate-500"></div>
           <div className="py-6 h-full place-items-center gap-6 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">

@@ -8,7 +8,7 @@ import {
   createShoppingCart,
   updateCart,
 } from "@/lib/actions";
-import QuantitySelector from "@/components/atoms/QuantitySelector/QuantitiySelector";
+import QuantitySelector from "@/components/atoms/QuantitySelector/QuantitySelector";
 import UserTypes, {
   ItemsInCartTypes,
   ProductCategoryTypes,
@@ -59,9 +59,9 @@ const ProductOptions = ({
     shopping_cart_id: shoppingCartId,
   });
 
-  if (sessionStorage.getItem("prevPage") !== undefined) {
-    sessionStorage.removeItem("prevPage");
-  }
+  // if (sessionStorage.getItem("prevPage") !== undefined) {
+  //   sessionStorage.removeItem("prevPage");
+  // }
   const handleFormChange: ChangeEventHandler<
     HTMLInputElement | HTMLSelectElement
   > = (event) => {

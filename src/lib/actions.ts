@@ -118,10 +118,27 @@ const updateCart = async (quantity: number, sameProductId: number) => {
   }
 };
 
+const deleteFromCart = async (id: number) => {
+  const supabase = createClient();
+
+  try {
+    const { error } = await supabase.from("product_item").delete().eq("id", id);
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message}- Failed in delete from cart catch block`,
+    );
+  }
+};
+
 export {
   logOut,
   clearCaches,
   addProductToCart,
   createShoppingCart,
   updateCart,
+  deleteFromCart,
 };

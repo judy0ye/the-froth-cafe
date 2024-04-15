@@ -1,11 +1,19 @@
 "use client";
 
+import CartPreview from "@/components/organisms/CartPreview/CartPreview";
+import { ItemsInCartTypes } from "@/components/molecules/ProductOptions/ProductOptionsTypes";
 import { IconShoppingCart } from "@tabler/icons-react";
 import clsx from "clsx";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 
-const ShoppingCartLogo = () => {
+const ShoppingCartLogo = ({
+  cartItems,
+  numOfProducts,
+}: {
+  cartItems: ItemsInCartTypes[];
+  numOfProducts: number;
+}) => {
   const pathname = usePathname();
   const cartPreviewRef = useRef<HTMLDivElement | null>(null);
   const [openCartPreview, setOpenCartPreview] = useState(false);
@@ -50,6 +58,14 @@ const ShoppingCartLogo = () => {
             onClick={toggleCartPreview}
             disabled={pathname.startsWith("/cart")}
           >
+            {numOfProducts !== undefined && numOfProducts > 0 && (
+              <div
+                aria-label={`number of items in cart is ${numOfProducts}`}
+                className="flex items-center justify-center absolute w-6 h-6 border-sky-800 border-2 bg-white top-1 right-1 rounded-full z-10"
+              >
+                {numOfProducts}
+              </div>
+            )}
             <IconShoppingCart aria-label="shopping cart" size={40} />
           </button>
         </div>
@@ -69,7 +85,12 @@ const ShoppingCartLogo = () => {
             "translate-x-[100%]": !openCartPreview,
           },
         )}
-      ></div>
+      >
+        <CartPreview
+          cartItems={cartItems}
+          toggleCartPreview={toggleCartPreview}
+        />
+      </div>
     </>
   );
 };

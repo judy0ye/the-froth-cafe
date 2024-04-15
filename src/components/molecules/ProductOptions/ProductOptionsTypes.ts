@@ -42,4 +42,6 @@ export interface ItemsInCartTypes {
   name: string;
   quantity: number;
   size: string;
+  price: number;
+  image: string;
 }
