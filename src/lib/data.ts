@@ -94,7 +94,11 @@ const fetchShoppingCart = async () => {
   try {
     const { data, error } = await supabase
       .from("shopping_cart")
-      .select("id, user_id");
+      .select(
+        `id, user_id, product_item(id, product_id, name, size, milk, quantity, price, image, product(product_category_id))`,
+      );
+    // .order("product_item(created_at)", { ascending: true });
+    // .select("id, user_id");
 
     if (error) {
       throw error;
@@ -114,8 +118,12 @@ const fetchItemsInCart = async (shoppingCartId: number) => {
   try {
     const { data, error } = await supabase
       .from("product_item")
+      // .select(
+      //   `id, name, size, milk, quantity, price, image, product(product_category_id)`,
+      // )
       .select("id, name, size, milk, quantity, price, image")
-      .eq("shopping_cart_id", shoppingCartId);
+      .eq("shopping_cart_id", shoppingCartId)
+      .order("created_at");
 
     if (error) {
       throw error;

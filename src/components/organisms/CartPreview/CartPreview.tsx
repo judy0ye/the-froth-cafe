@@ -17,12 +17,16 @@ const CartPreview = ({
     total += current.price * current.quantity;
     return total;
   }, 0);
-  const formRef = useRef<HTMLInputElement | null>(null);
-
+  const [isLoading, setIsLoading] = useState(false);
   const [alert, setAlert] = useState(false);
   const allItems = cartItems?.map((item, index) => (
     <div key={index}>
-      <CartItem item={item} formRef={formRef} setAlert={setAlert} />
+      <CartItem
+        item={item}
+        setAlert={setAlert}
+        toggleCartPreview={toggleCartPreview}
+        setIsLoading={setIsLoading}
+      />
 
       <div className="border-gray-700 mx-1 border-b-2"></div>
     </div>
@@ -42,6 +46,7 @@ const CartPreview = ({
           cartItems={cartItems}
           subtotalPrice={subtotalPrice || 0}
           alert={alert}
+          isLoading={isLoading}
         />
       )}
 

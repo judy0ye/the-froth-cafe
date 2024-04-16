@@ -1,7 +1,7 @@
 "use server";
 import { createClient } from "@/utils/supabase/server";
 import { revalidatePath } from "next/cache";
-import { ProductToAddTypes } from "./libTypes";
+import { OrderSummaryTypes, ProductToAddTypes } from "./libTypes";
 
 const logOut = async () => {
   const supabase = createClient();
@@ -134,6 +134,74 @@ const deleteFromCart = async (id: number) => {
   }
 };
 
+const submitOrderSummary = async (products: OrderSummaryTypes[]) => {
+  const supabase = createClient();
+  try {
+    const { data, error } = await supabase
+      .from("order_summary")
+      .insert(products)
+      .select("id");
+
+    if (error) {
+      throw error;
+    }
+
+    return data;
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message}- Failed in submit order summary catch block`,
+    );
+  }
+};
+
+const submitOrder = async (
+  total: number,
+  idArray: number[],
+  formData: FormData,
+) => {
+  "use server";
+  const supabase = createClient();
+
+  const pickupTime = formData.get("pickupTime");
+
+  try {
+    const { error } = await supabase.from("order").insert({
+      pickup_time: pickupTime,
+      total,
+      order_summary_id: idArray,
+    });
+
+    if (error) {
+      throw error;
+    }
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message}- Failed in submit order catch block`,
+    );
+  }
+};
+
+const clearShoppingCart = async (id: number) => {
+  const supabase = createClient();
+
+  try {
+    const { error } = await supabase
+      .from("shopping_cart")
+      .delete()
+      .eq("id", id);
+    // .in("product_item_id", ids);
+
+    if (error) {
+      throw error;
+    }
+    revalidatePath("/", "layout");
+  } catch (error) {
+    throw new Error(
+      `${(error as Error).message}- Failed in clear cart catch block`,
+    );
+  }
+};
+
 export {
   logOut,
   clearCaches,
@@ -141,4 +209,7 @@ export {
   createShoppingCart,
   updateCart,
   deleteFromCart,
+  submitOrderSummary,
+  submitOrder,
+  clearShoppingCart,
 };

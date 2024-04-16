@@ -14,9 +14,13 @@ const DetailedProduct = async ({ params }: { params: { slug: string } }) => {
   const product = await fetchIndividualProduct(decodedParam);
   const category = await fetchCategories(product?.product_category_id);
   const shoppingCart = await fetchShoppingCart();
+  // const itemsInCart = (await fetchShoppingCart())[0].product_item;
   if (shoppingCart.length > 0) {
-    itemsInCart = await fetchItemsInCart(shoppingCart[0].id);
+    itemsInCart = shoppingCart[0].product_item;
   }
+  // if (shoppingCart.length > 0) {
+  //   itemsInCart = await fetchItemsInCart(shoppingCart.id);
+  // }
   const user = await getUser();
 
   return (

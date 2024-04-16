@@ -1,23 +1,27 @@
 import QuantitySelector from "@/components/atoms/QuantitySelector/QuantitySelector";
 import { clearCaches, deleteFromCart, updateCart } from "@/lib/actions";
 import Image from "next/image";
-import { usePathname, useRouter } from "next/navigation";
+import { usePathname } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { ItemsInCartTypes } from "../ProductOptions/ProductOptionsTypes";
+import Link from "next/link";
 
 const CartItem = ({
   item,
-  formRef,
   setAlert,
+  toggleCartPreview,
+  setIsLoading,
 }: {
   item: ItemsInCartTypes;
-  formRef: React.RefObject<HTMLInputElement>;
   setAlert: React.Dispatch<React.SetStateAction<boolean>>;
+  toggleCartPreview?: () => void;
+  setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
 }) => {
   const pathname = usePathname();
   const [quantity, setQuantity] = useState(item.quantity);
   const [updatedPrice, setUpdatedPrice] = useState(item.price * item.quantity);
   const addRef = useRef<HTMLButtonElement>(null);
+  const formRef = useRef<HTMLInputElement | null>(null);
 
   const handleFormChange = (e: ChangeEvent<HTMLInputElement>) => {
     setAlert(true);
@@ -28,11 +32,27 @@ const CartItem = ({
     setUpdatedPrice(updated);
   };
 
+  // const handleAddClick = async (e: FormEvent) => {
+  //   e.preventDefault();
+  //   await updateCart(quantity, item.id);
+  //   clearCaches();
+  //   setAlert(false);
+  // };
+
   const handleAddClick = async (e: FormEvent) => {
     e.preventDefault();
-    await updateCart(quantity, item.id);
-    clearCaches();
-    setAlert(false);
+    setIsLoading(true);
+    try {
+      await updateCart(quantity, item.id);
+      clearCaches();
+      setAlert(false);
+    } catch (error) {
+      throw new Error(
+        `${(error as Error).message}- Failed in handle add click catch block`,
+      );
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   const handleRemoveClick = async (e: FormEvent) => {
@@ -54,7 +74,7 @@ const CartItem = ({
         }
       };
       document.addEventListener("mousedown", handleClickOutside);
-  
+
       return () => {
         document.removeEventListener("mousedown", handleClickOutside);
       };
@@ -63,7 +83,20 @@ const CartItem = ({
 
   return (
     <div className="flex flex-col gap-2 xs:flex-row justify-evenly items-center py-6">
-      <div className="w-[50%] flex justify-center">
+      <Link
+        onClick={toggleCartPreview}
+        href={{
+          pathname: `/product/${item.name}`,
+          query: {
+            categoryId: `${
+              Array.isArray(item.product)
+                ? item.product[0]?.product_category_id
+                : item.product?.product_category_id
+            }`,
+          },
+        }}
+        className="w-[50%] flex justify-center"
+      >
         <Image
           alt={item.name}
           height={130}
@@ -71,7 +104,7 @@ const CartItem = ({
           src={item.image}
           style={{ objectFit: "fill", height: "130px" }}
         />
-      </div>
+      </Link>
       <div className="flex flex-col w-[50%] justify-center items-center">
         <h2>{item.name}</h2>
         {pathname.startsWith("/cart") && <p>{item.size}</p>}
@@ -84,7 +117,6 @@ const CartItem = ({
               handleFormChange={handleFormChange}
               formRef={formRef}
             />
-
             <button
               ref={addRef}
               className="border-gray-700 border-2 px-2 cursor-pointer text-sm bg-gray-900 text-white rounded-md"

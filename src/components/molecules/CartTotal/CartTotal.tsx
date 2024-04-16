@@ -4,10 +4,12 @@ const CartTotal = ({
   cartItems,
   subtotalPrice,
   alert,
+  isLoading,
 }: {
   cartItems: ItemsInCartTypes[] | null;
   subtotalPrice: number;
   alert: boolean;
+  isLoading: boolean;
 }) => {
   const taxableItems = cartItems?.filter((item) => item.milk === null);
 
@@ -25,6 +27,11 @@ const CartTotal = ({
         <p className="text-lg font-semibold">Subtotal: </p>
         {alert ? (
           <p className="text-[15px]">update quantity to view</p>
+        ) : isLoading ? (
+          <svg
+            className="animate-spin rounded-full h-6 w-6 border-t-2 border-b-2 border-gray-900"
+            viewBox="0 0 24 24"
+          ></svg>
         ) : (
           <p className="text-gray-800 ">${subtotalPrice?.toFixed(2)}</p>
         )}
