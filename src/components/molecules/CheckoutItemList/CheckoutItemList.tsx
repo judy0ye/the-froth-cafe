@@ -6,7 +6,7 @@ const CheckoutItemList = ({
 }: {
   finalCartItems: CheckoutItemListTypes;
 }) => {
-  const checkoutItems = finalCartItems.product_item.map((item, index) => (
+  const checkoutItems = finalCartItems?.product_item.map((item, index) => (
     <div key={index}>
       <div className="flex flex-col gap-2 xs:flex-row justify-evenly items-center py-6 mx-1 border-slate-400 border-b-2">
         <div className="w-[50%] flex justify-center">

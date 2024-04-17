@@ -11,10 +11,15 @@ import { Menu, Transition } from "@headlessui/react";
 import { Fragment } from "react";
 import { logOut } from "@/lib/actions";
 import UserTypes from "./UserLogoTypes";
+import { useRouter } from "next/navigation";
 
 const UserLogo = ({ user }: { user: UserTypes | null }) => {
+  const router = useRouter();
   const handleLogOut = async () => {
     await logOut();
+    if (sessionStorage.getItem("prevPage") !== undefined) {
+      sessionStorage.removeItem("prevPage");
+    }
   };
   return (
     <>
@@ -63,12 +68,13 @@ const UserLogo = ({ user }: { user: UserTypes | null }) => {
                   <Menu.Item>
                     {({ active }) => (
                       <button
+                        onClick={() => router.push("/orders")}
                         className={`${
                           active ? "bg-gray-200 text-black" : "text-gray-900"
                         } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
                         <IconTruckDelivery />
-                        View Orders
+                        <p className="mx-2">View Orders</p>
                       </button>
                     )}
                   </Menu.Item>
@@ -81,7 +87,7 @@ const UserLogo = ({ user }: { user: UserTypes | null }) => {
                         } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
                       >
                         <IconLogout />
-                        Log Out
+                        <p className="mx-2">Log Out</p>
                       </button>
                     )}
                   </Menu.Item>

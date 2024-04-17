@@ -1,9 +1,32 @@
 import Link from "next/link";
 
 import * as NavigationMenu from "@radix-ui/react-navigation-menu";
-import { IconCaretDown, IconLogout } from "@tabler/icons-react";
+import {
+  IconCaretDown,
+  IconLogout,
+  IconTruckDelivery,
+} from "@tabler/icons-react";
+import { clearCaches, logOut } from "@/lib/actions";
+import { useRouter } from "next/navigation";
+import UserTypes from "@/components/atoms/UserLogo/UserLogoTypes";
 
-const NavigationRoutes = ({ toggleMenu }: { toggleMenu?: () => void }) => {
+const NavigationRoutes = ({
+  toggleMenu,
+  user,
+}: {
+  toggleMenu?: () => void;
+  user?: UserTypes | null;
+}) => {
+  const router = useRouter();
+  const handleLogOut = async () => {
+    await logOut();
+    clearCaches();
+    toggleMenu && toggleMenu();
+    if (sessionStorage.getItem("prevPage") !== undefined) {
+      sessionStorage.removeItem("prevPage");
+    }
+    router.push("/");
+  };
   return (
     <>
       <NavigationMenu.Root className="relative">
@@ -46,9 +69,33 @@ const NavigationRoutes = ({ toggleMenu }: { toggleMenu?: () => void }) => {
           <NavigationMenu.Item className=" hover:bg-gray-200 self-start sm:self-center rounded-[4px] px-3 py-3  leading-none  ">
             <Link href={"/fallback"}>Contact</Link>
           </NavigationMenu.Item>
+          {user !== null && (
+            <NavigationMenu.Item className="sm:hidden hover:bg-gray-200 self-start sm:self-center rounded-[4px] px-3 py-3  leading-none  ">
+              <Link
+                className="flex items-center gap-2"
+                onClick={toggleMenu}
+                href={"/orders"}
+              >
+                <IconTruckDelivery />
+                View Orders
+              </Link>
+            </NavigationMenu.Item>
+          )}
 
           <NavigationMenu.Item className="sm:hidden hover:bg-gray-200 self-start sm:self-center rounded-[4px] px-3 py-3  leading-none  ">
-            <IconLogout />
+            {user !== null ? (
+              <button
+                onClick={handleLogOut}
+                className="flex items-center gap-2"
+              >
+                <IconLogout />
+                Log Out
+              </button>
+            ) : (
+              <Link onClick={toggleMenu} href={"/login"}>
+                Log In
+              </Link>
+            )}
           </NavigationMenu.Item>
 
           <NavigationMenu.Indicator className="hidden sm:visible data-[state=visible]:animate-fadeIn data-[state=hidden]:animate-fadeOut top-full sm:flex z-[1] h-[10px] items-end justify-center overflow-hidden transition-[width,transform_250ms_ease]">

@@ -11,7 +11,12 @@ export default function LoginPage() {
   const { data } = supabase.auth.onAuthStateChange(async (event, session) => {
     if (session) {
       clearCaches();
-      router.push("/");
+      const prevPage = sessionStorage.getItem("prevPage");
+      if (prevPage) {
+        router.push(prevPage);
+      } else {
+        router.push("/");
+      }
     }
   });
 
@@ -20,8 +25,6 @@ export default function LoginPage() {
       <div className=" flex justify-center my-10">
         <div className="w-[50vw]">
           <Auth
-            // onlyThirdPartyProviders
-            // redirectTo={`${window.location.origin}`}
             providers={[]}
             supabaseClient={supabase}
             localization={{

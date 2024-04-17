@@ -38,7 +38,6 @@ export default interface UserTypes {
 
 export interface ItemsInCartTypes {
   id: number;
-  // product_id: number;
   milk: string | null;
   name: string;
   quantity: number;

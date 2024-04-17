@@ -14,6 +14,7 @@ import UserTypes, {
   ProductCategoryTypes,
   ProductOptionsTypes,
 } from "./ProductOptionsTypes";
+import { useFormStatus } from "react-dom";
 
 const ProductOptions = ({
   product,
@@ -28,6 +29,7 @@ const ProductOptions = ({
   shoppingCart: { id: number; user_id: string }[];
   itemsInCart?: ItemsInCartTypes[];
 }) => {
+  const [pending, setPending] = useState(false);
   const router = useRouter();
   const sizeOptions = [
     { value: "Small", price: 4.5 },
@@ -59,9 +61,6 @@ const ProductOptions = ({
     shopping_cart_id: shoppingCartId,
   });
 
-  // if (sessionStorage.getItem("prevPage") !== undefined) {
-  //   sessionStorage.removeItem("prevPage");
-  // }
   const handleFormChange: ChangeEventHandler<
     HTMLInputElement | HTMLSelectElement
   > = (event) => {
@@ -83,9 +82,11 @@ const ProductOptions = ({
 
   const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
+    setPending(true);
     if (!user) {
       sessionStorage.setItem("prevPage", window.location.href);
       router.push("/login");
+      window.scrollTo(0, 0);
     }
 
     if (user !== null) {
@@ -106,13 +107,16 @@ const ProductOptions = ({
       if (!matchingShoppingCart) {
         const shoppingCartId = await createShoppingCart(user?.id);
         await addProductToCart(formData, shoppingCartId);
+        setPending(false);
       } else {
         if (sameProduct) {
           const updatedQty =
             Number(formData.quantity) + Number(sameProduct.quantity);
           await updateCart(updatedQty, sameProduct.id);
+          setPending(false);
         } else {
           await addProductToCart(formData);
+          setPending(false);
         }
       }
 
@@ -192,9 +196,9 @@ const ProductOptions = ({
         />
         <button
           type="submit"
-          className="size-10 bg-black text-white w-32 rounded-md"
+          className="size-10  bg-black text-white w-36 rounded-md"
         >
-          Add to Cart
+          {pending && user !== null ? "Adding to Cart..." : "Add to Cart"}
         </button>
       </form>
     </>

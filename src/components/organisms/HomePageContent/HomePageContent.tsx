@@ -1,6 +1,8 @@
 import { IconArrowNarrowRight } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
+import fs from "node:fs/promises";
+import { getPlaiceholder } from "plaiceholder";
 
 const data = [
   {
@@ -18,31 +20,38 @@ const data = [
     title: "Shop Food",
   },
 ];
+
 const HomePageContent = () => {
-  const display = data.map((content, index) => (
-    <Link href={content.link} key={index} className="flex flex-col gap-2">
-      <div className="flex justify-center h-full">
-        <Image
-          alt={content.alt}
-          width={600}
-          height={400}
-          style={{
-            objectFit: "fill",
-            maxHeight: "400px",
-          }}
-          className="sm:w-full"
-          src={content.src}
-        />
-      </div>
-      <div className="flex flex-col">
-        <h2 className="font-bold text-xl pb-2">{content.title}</h2>
-        <p>{content.tagline}</p>
-        <p className="flex pt-4">
-          BROWSE MENU <IconArrowNarrowRight aria-hidden />
-        </p>
-      </div>
-    </Link>
-  ));
+  const display = data.map(async (content, index) => {
+    const buffer = await fs.readFile(`./public/${content.src}`);
+    const { base64 } = await getPlaiceholder(buffer);
+    return (
+      <Link href={content.link} key={index} className="flex flex-col gap-2">
+        <div className="flex justify-center h-full">
+          <Image
+            alt={content.alt}
+            width={600}
+            height={400}
+            style={{
+              objectFit: "fill",
+              maxHeight: "400px",
+            }}
+            className="sm:w-full"
+            src={content.src}
+            placeholder="blur"
+            blurDataURL={base64}
+          />
+        </div>
+        <div className="flex flex-col">
+          <h2 className="font-bold text-xl pb-2">{content.title}</h2>
+          <p>{content.tagline}</p>
+          <p className="flex pt-4">
+            BROWSE MENU <IconArrowNarrowRight aria-hidden />
+          </p>
+        </div>
+      </Link>
+    );
+  });
   return (
     <div className="flex flex-col justify-evenly lg:flex-row my-8 sm:px-16  gap-10 ">
       {display}

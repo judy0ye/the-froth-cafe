@@ -21,7 +21,7 @@ const logOut = async () => {
   }
 };
 
-const clearCaches = async () => {
+const clearCaches = () => {
   try {
     revalidatePath("/");
   } catch (error) {
@@ -67,7 +67,6 @@ const addProductToCart = async (
 
     if (data) {
       return data[0];
-      // return data[0].id;
     }
   } catch (error) {
     throw new Error(
@@ -89,7 +88,6 @@ const createShoppingCart = async (userId: string) => {
     }
 
     if (data) {
-      // return data[0];
       return data[0].id;
     }
   } catch (error) {
@@ -189,7 +187,6 @@ const clearShoppingCart = async (id: number) => {
       .from("shopping_cart")
       .delete()
       .eq("id", id);
-    // .in("product_item_id", ids);
 
     if (error) {
       throw error;

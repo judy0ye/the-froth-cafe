@@ -1,15 +1,11 @@
 import { fetchShoppingCart } from "@/lib/data";
 import CheckoutForm from "@/components/molecules/CheckoutForm/CheckoutForm";
-import { submitOrder } from "@/lib/actions";
-import { Fascinate } from "next/font/google";
+
 import CheckoutItemList from "@/components/molecules/CheckoutItemList/CheckoutItemList";
-// import { submitOrder } from "@/lib/actions";
 
 const CheckoutSummary = async () => {
-  // const shoppingCart = await fetchShoppingCart();
   const finalCartItems = (await fetchShoppingCart())[0];
-  // const finalCartItems = (await fetchCartItems()) || [];
-  const subtotalPrice = finalCartItems.product_item?.reduce(
+  const subtotalPrice = finalCartItems?.product_item?.reduce(
     (total, current) => {
       total += current.price * current.quantity;
       return total;
@@ -17,7 +13,7 @@ const CheckoutSummary = async () => {
     0,
   );
 
-  const taxableItems = finalCartItems.product_item?.filter(
+  const taxableItems = finalCartItems?.product_item?.filter(
     (item) => item.milk === null,
   );
 
@@ -30,7 +26,7 @@ const CheckoutSummary = async () => {
   const createOptions = () => {
     const timeOptionsArray = [];
     const currentTime = new Date();
-    const closingTime = 22 * 60;
+    const closingTime = 18 * 60;
 
     for (let i = 0; i < 5; i++) {
       const timeToAlter = new Date(currentTime);
@@ -56,8 +52,6 @@ const CheckoutSummary = async () => {
 
   const total = taxOnFood + (subtotalPrice || 0);
 
-  // const submitOrderWithTotal = submitOrder.bind(null, total, sessionId);
-
   return (
     <div className="flex flex-col md:flex-row-reverse justify-around">
       <div className="flex flex-col border-slate-400 border-2 px-4 rounded-md w-full md:w-1/3 h-full md:sticky top-20">
@@ -76,12 +70,9 @@ const CheckoutSummary = async () => {
         </span>
       </div>
       <CheckoutForm
-        // submitOrderWithTotal={submitOrderWithTotal}
         allTimeOptions={allTimeOptions}
         total={total}
         finalCartItems={finalCartItems}
-        // sessionId={sessionId}
-        // allProductItemIds={allProductItemIds}
       />
     </div>
   );

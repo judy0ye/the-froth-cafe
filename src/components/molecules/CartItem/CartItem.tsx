@@ -1,18 +1,20 @@
 import QuantitySelector from "@/components/atoms/QuantitySelector/QuantitySelector";
 import { clearCaches, deleteFromCart, updateCart } from "@/lib/actions";
 import Image from "next/image";
-import { usePathname } from "next/navigation";
+import { redirect, usePathname } from "next/navigation";
 import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
 import { ItemsInCartTypes } from "../ProductOptions/ProductOptionsTypes";
 import Link from "next/link";
 
 const CartItem = ({
   item,
+  category,
   setAlert,
   toggleCartPreview,
   setIsLoading,
 }: {
   item: ItemsInCartTypes;
+  category: number;
   setAlert: React.Dispatch<React.SetStateAction<boolean>>;
   toggleCartPreview?: () => void;
   setIsLoading: React.Dispatch<React.SetStateAction<boolean>>;
@@ -41,17 +43,17 @@ const CartItem = ({
 
   const handleAddClick = async (e: FormEvent) => {
     e.preventDefault();
+    setAlert(false);
     setIsLoading(true);
     try {
       await updateCart(quantity, item.id);
       clearCaches();
-      setAlert(false);
+      setIsLoading(false);
     } catch (error) {
+      setIsLoading(false);
       throw new Error(
         `${(error as Error).message}- Failed in handle add click catch block`,
       );
-    } finally {
-      setIsLoading(false);
     }
   };
 
@@ -88,11 +90,7 @@ const CartItem = ({
         href={{
           pathname: `/product/${item.name}`,
           query: {
-            categoryId: `${
-              Array.isArray(item.product)
-                ? item.product[0]?.product_category_id
-                : item.product?.product_category_id
-            }`,
+            categoryId: category,
           },
         }}
         className="w-[50%] flex justify-center"

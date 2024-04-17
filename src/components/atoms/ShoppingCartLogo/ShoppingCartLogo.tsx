@@ -10,9 +10,11 @@ import { useEffect, useRef, useState } from "react";
 const ShoppingCartLogo = ({
   cartItems,
   numOfProducts,
+  category,
 }: {
   cartItems: ItemsInCartTypes[];
   numOfProducts: number;
+  category: number;
 }) => {
   const pathname = usePathname();
   const cartPreviewRef = useRef<HTMLDivElement | null>(null);
@@ -87,6 +89,7 @@ const ShoppingCartLogo = ({
         )}
       >
         <CartPreview
+          category={category}
           cartItems={cartItems}
           toggleCartPreview={toggleCartPreview}
         />

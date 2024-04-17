@@ -70,12 +70,8 @@ const CheckoutForm = ({
     const { name, value } = e.target;
     setCcInfo({ ...ccInfo, [name]: value });
   };
-  // const submitOrderWithTotal = submitOrder.bind(
-  //   null,
-  //   total,
-  //   allProductItemIds,
-  // );
-  const products: OrderSummaryTypes[] = finalCartItems.product_item.map(
+
+  const products: OrderSummaryTypes[] = finalCartItems?.product_item.map(
     (cartItem) => ({
       product_id: cartItem.product_id,
       milk: cartItem.milk,
@@ -107,6 +103,8 @@ const CheckoutForm = ({
               await submitOrderWithTotal(formData);
               await clearShoppingCart(finalCartItems.id);
               router.push("/success");
+              window.scrollTo(0, 0);
+              router.refresh();
             } catch (error) {
               redirect("/unsuccessful");
             }

@@ -7,8 +7,9 @@ import BrandLogo from "@/components/atoms/BrandLogo/BrandLogo";
 import NavigationRoutes from "../NavigationRoutes/NavigationRoutes";
 import clsx from "clsx";
 import SideNavigation from "@/components/organisms/SideNavigation/SideNavigation";
+import UserTypes from "@/components/atoms/UserLogo/UserLogoTypes";
 
-const HeaderNavigation = () => {
+const HeaderNavigation = ({ user }: { user: UserTypes | null }) => {
   const sideNavRef = useRef<HTMLDivElement | null>(null);
   const [openMenu, setOpenMenu] = useState(false);
 
@@ -49,8 +50,8 @@ const HeaderNavigation = () => {
   }, [openMenu]);
 
   return (
-    <>
-      <button className="sm:hidden pl-1" onClick={toggleMenu}>
+    <div className="flex w-full">
+      <button className="sm:hidden w-12 pl-1" onClick={toggleMenu}>
         {!openMenu ? (
           <IconMenu2 aria-label="open side navigation menu" />
         ) : (
@@ -73,9 +74,9 @@ const HeaderNavigation = () => {
           },
         )}
       >
-        <SideNavigation toggleMenu={toggleMenu} />
+        <SideNavigation user={user} toggleMenu={toggleMenu} />
       </div>
-    </>
+    </div>
   );
 };
 

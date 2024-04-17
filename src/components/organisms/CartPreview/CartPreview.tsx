@@ -1,17 +1,17 @@
-import Image from "next/image";
-// import CartProductTypes from "./CartPreviewTypes";
 import CartItem from "@/components/molecules/CartItem/CartItem";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useState } from "react";
 import { ItemsInCartTypes } from "@/components/molecules/ProductOptions/ProductOptionsTypes";
 import CartTotal from "@/components/molecules/CartTotal/CartTotal";
 
 const CartPreview = ({
   toggleCartPreview,
   cartItems,
+  category,
 }: {
   toggleCartPreview: () => void;
   cartItems?: ItemsInCartTypes[];
+  category: number;
 }) => {
   const subtotalPrice = cartItems?.reduce((total, current) => {
     total += current.price * current.quantity;
@@ -22,6 +22,7 @@ const CartPreview = ({
   const allItems = cartItems?.map((item, index) => (
     <div key={index}>
       <CartItem
+        category={category}
         item={item}
         setAlert={setAlert}
         toggleCartPreview={toggleCartPreview}

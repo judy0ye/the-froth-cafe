@@ -1,9 +1,7 @@
-import { useRouter } from "next/navigation";
 import { useFormStatus } from "react-dom";
 
 const SubmitBtn = ({ total }: { total: number }) => {
   const { pending } = useFormStatus();
-  const router = useRouter();
 
   return (
     <div className="flex justify-center py-4">
