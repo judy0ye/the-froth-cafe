@@ -5,7 +5,7 @@
 
 [![LinkedIn](https://img.shields.io/badge/Judy-blue?style=for-the-badge&logo=LinkedIn&logoColor=black)](https://www.linkedin.com/in/judy0ye)
 
-[DEPLOYED LINK]()
+[DEPLOYED LINK](https://the-froth-cafe.vercel.app/)
 
 </div>
 
@@ -34,8 +34,19 @@ npm run dev
   
   | Description | Screenshot |
   |------------ | -----------|
-  | <h3 align="center">Landing Page | 
-  | <h3 align="center">Responsiveness| 
+  | <h3 align="center">Landing Page | ![landing](https://github.com/judy0ye/the-froth-cafe/assets/129805348/14f065e2-bdd7-494d-9c30-deb7b60bfcbe)
+  | <h3 align="center">Responsiveness| ![responsiveness](https://github.com/judy0ye/the-froth-cafe/assets/129805348/a20b1fe8-f4f6-4458-925b-a53217c33883)
+  | <h3 align="center">Orders| ![orders](https://github.com/judy0ye/the-froth-cafe/assets/129805348/863eab42-8a9d-4d2a-9ad8-147b7b0bcc06)
+  | <h3 align="center">Update| ![update](https://github.com/judy0ye/the-froth-cafe/assets/129805348/ff09f01f-b75a-48dd-b565-e2a58d2a3bf3)
+  | <h3 align="center">Log In| ![signin](https://github.com/judy0ye/the-froth-cafe/assets/129805348/52d3f28c-8281-4002-aab6-cd352cd3f903)
+  | <h3 align="center">Tables| ![Screenshot 2024-04-17 at 3 16 23 PM](https://github.com/judy0ye/the-froth-cafe/assets/129805348/e3afc112-92c7-406b-a045-72faa329bef4)
+
+
+
+
+
+
+
 
 
 
