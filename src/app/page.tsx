@@ -5,7 +5,7 @@ import fs from "node:fs/promises";
 import { getPlaiceholder } from "plaiceholder";
 
 export default async function Home() {
-  const buffer = await fs.readFile("./public/coffee-shop.jpeg");
+  const buffer = await fs.readFile("public/coffee-shop.jpeg");
   const { base64 } = await getPlaiceholder(buffer);
   return (
     <main className="flex flex-col gap-10">

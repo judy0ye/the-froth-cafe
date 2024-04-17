@@ -23,7 +23,7 @@ const data = [
 
 const HomePageContent = () => {
   const display = data.map(async (content, index) => {
-    const buffer = await fs.readFile(`./public/${content.src}`);
+    const buffer = await fs.readFile(`public/${content.src}`);
     const { base64 } = await getPlaiceholder(buffer);
     return (
       <Link href={content.link} key={index} className="flex flex-col gap-2">

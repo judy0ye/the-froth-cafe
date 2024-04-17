@@ -4,7 +4,7 @@ import fs from "node:fs/promises";
 import { getPlaiceholder } from "plaiceholder";
 
 const Fallback = async () => {
-  const buffer = await fs.readFile("./public/cat.jpg");
+  const buffer = await fs.readFile("public/cat.jpg");
   const { base64 } = await getPlaiceholder(buffer);
   return (
     <>
