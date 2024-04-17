@@ -4,16 +4,16 @@ import fs from "node:fs/promises";
 import { getPlaiceholder } from "plaiceholder";
 
 const Fallback = async () => {
-  let blurred;
-  try {
-    const buffer = await fs.readFile("public/cat.jpg");
-    const { base64 } = await getPlaiceholder(buffer);
-    blurred = base64;
-  } catch (error) {
-    throw new Error(
-      `${(error as Error).message}- Failed in returning base64 catch block`,
-    );
-  }
+  // let blurred;
+  // try {
+  //   const buffer = await fs.readFile("public/cat.jpg");
+  //   const { base64 } = await getPlaiceholder(buffer);
+  //   blurred = base64;
+  // } catch (error) {
+  //   throw new Error(
+  //     `${(error as Error).message}- Failed in returning base64 catch block`,
+  //   );
+  // }
   return (
     <>
       <h1 className="text-2xl sm:text-4xl font-bold text-center py-8 px-4">
@@ -25,8 +25,8 @@ const Fallback = async () => {
           width={500}
           alt="cat lying sideways"
           src={"/cat.jpg"}
-          placeholder="blur"
-          blurDataURL={blurred}
+          // placeholder="blur"
+          // blurDataURL={blurred}
         />
       </div>
       <div className="flex justify-center py-8">

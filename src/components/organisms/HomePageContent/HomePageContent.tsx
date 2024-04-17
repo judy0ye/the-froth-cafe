@@ -23,16 +23,16 @@ const data = [
 
 const HomePageContent = () => {
   const display = data.map(async (content, index) => {
-    let blurred;
-    try {
-      const buffer = await fs.readFile(`public/${content.src}`);
-      const { base64 } = await getPlaiceholder(buffer);
-      blurred = base64;
-    } catch (error) {
-      throw new Error(
-        `${(error as Error).message}- Failed in returning base64 catch block`,
-      );
-    }
+    // let blurred;
+    // try {
+    //   const buffer = await fs.readFile(`public/${content.src}`);
+    //   const { base64 } = await getPlaiceholder(buffer);
+    //   blurred = base64;
+    // } catch (error) {
+    //   throw new Error(
+    //     `${(error as Error).message}- Failed in returning base64 catch block`,
+    //   );
+    // }
     return (
       <Link href={content.link} key={index} className="flex flex-col gap-2">
         <div className="flex justify-center h-full">
@@ -46,8 +46,8 @@ const HomePageContent = () => {
             }}
             className="sm:w-full"
             src={content.src}
-            placeholder="blur"
-            blurDataURL={blurred}
+            // placeholder="blur"
+            // blurDataURL={blurred}
           />
         </div>
         <div className="flex flex-col">
