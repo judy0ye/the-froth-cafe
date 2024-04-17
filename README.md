@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
 
-## Getting Started
+# The Froth Cafe
+**Created by [Judy Ye](https://github.com/judy0ye)**
 
-First, run the development server:
+[![LinkedIn](https://img.shields.io/badge/Judy-blue?style=for-the-badge&logo=LinkedIn&logoColor=black)](https://www.linkedin.com/in/judy0ye)
+
+[DEPLOYED LINK]()
+
+</div>
+
+## 📝 Description
+Welcome to The Froth Cafe, where users can indulge in a virtual cafe experience, browsing menus, placing orders effortlessly, updating selections, signing in securely, and managing their shopping carts. Powered by Supabase's PostgreSQL database with normalized tables, it ensures optimal efficiency and minimal data redundancy. The Froth Cafe project serves as a dynamic exploration of full-stack development, honing skills in e-commerce application creation through practice with Supabase's PostgreSQL integration. 
+
+## 🧑‍💻 Installation Instructions
 
 ```bash
+# Clone this repo to your local machine by running:
+git clone git@github.com:judy0ye/the-froth-cafe.git
+
+# Cd into the root directory 
+cd the-froth-cafe
+
+# Install dependencies 
+npm install
+
+# Run the start script
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 📸 Screenshots
+<details open>
+  <summary> ⚙️ Functionality </summary>
+  
+  | Description | Screenshot |
+  |------------ | -----------|
+  | <h3 align="center">Landing Page | 
+  | <h3 align="center">Responsiveness| 
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
 
-## Learn More
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+  
+</details>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+## 💻 Technologies Used
+<div align='center'>
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB" />
+  <img src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white" />
+  <img src="https://img.shields.io/badge/JavaScript-323330?style=for-the-badge&logo=javascript&logoColor=F7DF1E" /> 
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white" /> 
+  <img src="https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white" />
+  <img src="https://img.shields.io/badge/next.js-000000?style=for-the-badge&logo=nextdotjs&logoColor=white" />
+  <img src="https://img.shields.io/badge/Supabase-3FCF8E?logo=supabase&logoColor=fff&style=for-the-badge" /> 
+  <img src="https://img.shields.io/badge/Headless%20UI-66E3FF?logo=headlessui&logoColor=000&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Radix%20UI-161618?logo=radixui&logoColor=fff&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Tailwind%20CSS-06B6D4?logo=tailwindcss&logoColor=fff&style=for-the-badge" />
+  <img src="https://img.shields.io/badge/Vercel-000?logo=vercel&logoColor=fff&style=for-the-badge" /> 
+</div>
