@@ -6,8 +6,8 @@ import Loading from "./loading";
 const Beverages = () => {
   return (
     <>
-      <Hero />
       <Suspense fallback={<Loading />}>
+        <Hero />
         <ProductGrid location="beverages" />
       </Suspense>
     </>

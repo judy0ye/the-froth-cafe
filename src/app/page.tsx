@@ -1,20 +1,16 @@
 import HomePageContent from "@/components/organisms/HomePageContent/HomePageContent";
 import LightContainer from "@/components/templates/LightContainer/LightContainer";
+import { getBase64 } from "@/lib/data";
 import Image from "next/image";
-// import fs from "node:fs/promises";
-// import { getPlaiceholder } from "plaiceholder";
+import { getPlaiceholder } from "plaiceholder";
 
 export default async function Home() {
-  // let blurred;
-  // try {
-  //   const buffer = await fs.readFile("public/coffee-shop.jpeg");
-  //   const { base64 } = await getPlaiceholder(buffer);
-  //   blurred = base64;
-  // } catch (error) {
-  //   throw new Error(
-  //     `${(error as Error).message}- Failed in returning base64 catch block`,
-  //   );
-  // }
+  const base64Image = await getBase64(
+    "https://images.pexels.com/photos/1002740/pexels-photo-1002740.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1" ||
+      "",
+  );
+  const { base64 } = await getPlaiceholder(base64Image);
+
   return (
     <main className="flex flex-col gap-10">
       <div className="flex relative h-[75vh] bg-no-repeat sm:bg-right  ">
@@ -26,7 +22,7 @@ export default async function Home() {
           fill={true}
           src={"/coffee-shop.jpeg"}
           placeholder="blur"
-          blurDataURL={"/blurred-coffee-shop.jpeg"}
+          blurDataURL={base64}
         />
       </div>
       <LightContainer>

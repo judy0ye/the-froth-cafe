@@ -1,11 +1,13 @@
+import { getBase64 } from "@/lib/data";
 import { IconArrowNarrowRight } from "@tabler/icons-react";
 import Image from "next/image";
 import Link from "next/link";
-import fs from "node:fs/promises";
 import { getPlaiceholder } from "plaiceholder";
 
 const data = [
   {
+    blurredsrc:
+      "https://images.pexels.com/photos/302894/pexels-photo-302894.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     src: "/coffee-machine.webp",
     alt: "espresso machine making coffee",
     tagline: "Taste our refreshing coffee collection",
@@ -13,6 +15,8 @@ const data = [
     title: "Shop Coffee",
   },
   {
+    blurredsrc:
+      "https://images.pexels.com/photos/5964501/pexels-photo-5964501.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2",
     src: "/croissant.webp",
     alt: "hand holding a tray of croissants",
     tagline: "Taste our refreshing bakery collection",
@@ -23,16 +27,8 @@ const data = [
 
 const HomePageContent = () => {
   const display = data.map(async (content, index) => {
-    // let blurred;
-    // try {
-    //   const buffer = await fs.readFile(`public/${content.src}`);
-    //   const { base64 } = await getPlaiceholder(buffer);
-    //   blurred = base64;
-    // } catch (error) {
-    //   throw new Error(
-    //     `${(error as Error).message}- Failed in returning base64 catch block`,
-    //   );
-    // }
+    const base64Image = await getBase64(content.blurredsrc || "");
+    const { base64 } = await getPlaiceholder(base64Image);
     return (
       <Link href={content.link} key={index} className="flex flex-col gap-2">
         <div className="flex justify-center h-full">
@@ -46,8 +42,8 @@ const HomePageContent = () => {
             }}
             className="sm:w-full"
             src={content.src}
-            // placeholder="blur"
-            // blurDataURL={blurred}
+            placeholder="blur"
+            blurDataURL={base64}
           />
         </div>
         <div className="flex flex-col">
